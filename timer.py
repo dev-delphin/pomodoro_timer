@@ -6,32 +6,19 @@ from playsound import playsound
 def timer_time (concentration_time, smal_break_time, large_break_time, cicles) -> print:
     to_break = 1
     while cicles > 0:
-        cur_time = datetime.now()
-        alarm_time = cur_time + timedelta(minutes=concentration_time)
-        playsound('media/8bit.mp3',block = False)
-        while alarm_time >= cur_time:
+        data = [concentration_time, smal_break_time, large_break_time]
+        texts = [f'Время концентрации. Минут: {concentration_time}.', f'Небольшой перерыв. Минут: {smal_break_time}.', f'Большой перерыв. Минут: {large_break_time}.']
+        for date, text in zip(data,texts):
+            if date == large_break_time and to_break < 3 and text == f'Большой перерыв. Минут: {date}.': continue
             cur_time = datetime.now()
-            system('clear')
-            print(f"Осталось циклов: {cicles}\nВремя концентрации. {concentration_time} минут.")
-            print(alarm_time - cur_time)
-
-        cur_time = datetime.now()
-        alarm_smal_break_time = cur_time + timedelta(minutes=concentration_time)
-        playsound('media/8bit.mp3',block = False)
-        while alarm_smal_break_time >= cur_time:
-            cur_time = datetime.now()
-            system('clear')
-            print(f"Осталось циклов: {cicles}\nНебольшой перерыв. {smal_break_time} минут.")
-            print(alarm_smal_break_time - cur_time)
-
-        if to_break == 3:
-            cur_time = datetime.now()
-            alarm_large_break_time = cur_time + timedelta(minutes=concentration_time)
+            date = cur_time + timedelta(minutes=date)
             playsound('media/8bit.mp3',block = False)
-            while alarm_large_break_time >= cur_time:
+            while date >= cur_time:
                 cur_time = datetime.now()
                 system('clear')
-                print(f"Осталось циклов: {cicles}\nБольшой перерыв. {large_break_time} минут.")
-                print(alarm_large_break_time - cur_time)
+                print(to_break)
+                print(f"Осталось циклов: {cicles}\n{text}")
+                print(date - cur_time)
+            if to_break > 3: to_break=1
         to_break+=1
         cicles-=1
