@@ -5,6 +5,7 @@ from playsound import playsound
 
 def timer_time (variables) -> print:
     to_break = 1
+    cicles = large_break_time = smal_break_time = concentration_time = 0
     for key, val in enumerate(variables):
         if key == 0: cicles = val
         if key == 1: large_break_time = val
